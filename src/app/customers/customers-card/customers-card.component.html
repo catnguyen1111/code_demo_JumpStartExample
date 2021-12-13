@@ -1,0 +1,36 @@
+
+<div class="container">
+  <app-customers></app-customers>
+  <br>
+  <div class="row card-container">
+      <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let customer of data">
+          <div class="card">
+            <div class="card-header">
+              <a [routerLink]="['/customers',customer.id,'details']" class="white">
+                {{customer.first_name }} {{ customer.last_name }}
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="pull-left card-body-left">
+                  <a href="#" class="white">
+                      <img src= {{customer.avatar}} class="card-image" />
+                  </a>
+                </div>
+                <div class="pull-left card-body-right">
+                    <div class="card-body-content">
+                      <span>ID:{{customer.id}}</span>
+                      <br>
+                      <span>Name: {{customer.first_name }} {{ customer.last_name }}</span>
+                      <br>
+                      <span>Email:{{customer.email}}</span>
+                    </div>
+                    <br>
+                    <a href="">View Orders</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

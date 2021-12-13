@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="onsubmit()">
+  <h2>{{form.controls.first_name.value}} {{form.controls.last_name.value}} Details</h2>
+  <img src="{{form.controls.avatar.value}}" alt="">
+  <div><span>id:</span>{{form.controls.id.value}}</div>
+  <div><span>name:</span>{{form.controls.first_name.value}} {{form.controls.last_name.value}}</div>
+  <div class="">
+    <label for="name">FirstName:</label>
+    <input type="text" id= "name" formControlName = "first_name" >
+  </div>
+  <div class="">
+    <label for="name">LastName:</label>
+    <input type="text" id= "name" formControlName = "last_name" >
+  </div>
+  <div class="">
+    <label for="name">Email:</label>
+    <input type="text" id= "name" formControlName = "email" >
+  </div>
+  <button class="btn btn-primary"(click)="goBack()">Go back</button>
+  <button class="btn btn-primary"(click)="save(
+    form.controls.id.value,
+    form.controls.first_name.value,
+    form.controls.last_name.value,
+    form.controls.email.value,
+    form.controls.avatar.value)">Save</button>
+
+ </form>

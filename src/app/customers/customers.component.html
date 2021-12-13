@@ -1,0 +1,41 @@
+<div class="container">
+  <header>
+    <h3>
+      <span>Customers</span>
+    </h3>
+  </header>
+  <br/>
+  <div class="row">
+    <div class="col-8">
+      <div class="navbar n navbar-expand-lg navbar-light bg-light">
+        <ul class="nav navbar-nav nav-pills navBarPadding">
+          <li class="toolbar-item nav-item">
+            <a [routerLink]="['/customers/card']" href="" class="nav-link">Card View</a>
+          </li>
+          <li class="toolbar-item nav-item">
+            <a [routerLink]="['/customers/gird']" href="" class="nav-link">List View</a>
+          </li>
+          <li class="toolbar-item nav-item">
+            <a href="" class="nav-link">Map View</a>
+          </li>
+          <li class="toolbar-item nav-item">
+            <a [routerLink]="['/customers/new']" href="" class="nav-link">New Customer</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-group">
+        <input #searchBox type="text" class="form-control" placeholder="Search" (input)= "search(searchBox.value)">
+        <ul class="search-result">
+          <li *ngFor="let customer of customers$ | async" >
+            <a routerLink="/detail/{{customer.id}}">
+              {{customer.first_name}} {{customer.last_name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
