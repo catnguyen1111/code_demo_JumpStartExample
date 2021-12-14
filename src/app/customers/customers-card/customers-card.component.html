@@ -3,7 +3,12 @@
   <app-customers></app-customers>
   <br>
   <div class="row card-container">
-      <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let customer of customers$ | async">
+      <div class="col-sm-6 col-md-4 col-lg-4"*ngFor="let customer of POSTS | paginate:{
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+       };
+       let i = index">
           <div class="card">
             <div class="card-header">
               <a [routerLink]="['/customers',customer.id,'details']" class="white">
@@ -32,5 +37,14 @@
             </div>
           </div>
         </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
     </div>
 </div>

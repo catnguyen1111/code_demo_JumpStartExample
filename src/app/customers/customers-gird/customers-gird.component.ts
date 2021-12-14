@@ -54,7 +54,7 @@ export class CustomersGirdComponent implements OnInit {
 
     console.log("delete",customer.id)
     this.store.dispatch(new CustomerActions.DeleteCustomer(customer.id))
-    this.fetchPosts();
+
     // this.dataService.deleteCustomer(customer.id).subscribe()
     // this.dataService.getCustomeres().subscribe(customer => {
     //   console.log("customer gird",customer);

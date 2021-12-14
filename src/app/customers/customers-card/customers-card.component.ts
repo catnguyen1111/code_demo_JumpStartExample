@@ -14,7 +14,11 @@ import * as CustomerActions from 'src/app/Store/customer.action';
 })
 export class CustomersCardComponent implements OnInit {
   @Select(CustomerState.customer) customers$!: Observable<Customer[]>
-
+  POSTS:any;
+  page:number = 1;
+  count:number = 0;
+  tableSize:number = 6;
+  tableSizes = [3,6,9,12];
   constructor(
     public dataService: DataService,
     public store: Store
@@ -23,16 +27,33 @@ export class CustomersCardComponent implements OnInit {
   data:any;
   ngOnInit(): void {
 
-    this.getCustomer();
+    this.fetchPosts();
 
   }
-  getCustomer(){
-    // this.dataService.getCustomeres().subscribe((customers)=>{
-    //   console.log("customers",customers),
-    //    this.data = customers,
-    //   console.log("data1",this.data)
-    //   })
-    this.store.dispatch(new CustomerActions.GetCustomers())
+  // getCustomer(){
+  //   // this.dataService.getCustomeres().subscribe((customers)=>{
+  //   //   console.log("customers",customers),
+  //   //    this.data = customers,
+  //   //   console.log("data1",this.data)
+  //   //   })
+  //   this.store.dispatch(new CustomerActions.GetCustomers())
 
+  // }
+  fetchPosts():void {
+    this.store.dispatch(new CustomerActions.GetCustomers()).subscribe(_=>{
+      this.customers$.subscribe(
+        (response )=>{
+          this.POSTS = response;
+          console.log("response",response);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    })
+  }
+  onTableDataChange(event:any){
+    this.page = event;
+    this.fetchPosts();
   }
 }
