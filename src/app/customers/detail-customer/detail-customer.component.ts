@@ -6,19 +6,25 @@ import { Observable } from 'rxjs';
 import { Customer } from 'src/app/model/interface';
 import { DataService } from 'src/app/Services/data.service';
 import {Location} from '@angular/common';
+import { CustomerState } from 'src/app/Store/customer.state';
+import { Select, Store } from '@ngxs/store';
+import * as CustomerActions from 'src/app/Store/customer.action';
 @Component({
   selector: 'app-detail-customer',
   templateUrl: './detail-customer.component.html',
   styleUrls: ['./detail-customer.component.scss']
 })
 export class DetailCustomerComponent implements OnInit {
-  public dataCustomer?:Customer;
+  @Select(CustomerState.selectedCustomer) customers$!: Observable<Customer>
+  public dataCustomer!:Customer;
   public data!:Customer;
+  public data_test!:any;
   form!: FormGroup;
   constructor(
     private dataService: DataService,
     private router: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -28,18 +34,15 @@ export class DetailCustomerComponent implements OnInit {
   }
   getCustomer() {
     const id = Number(this.router.snapshot.paramMap.get('id'));
-    console.log("id", id)
-    this.dataService.getCustomer(id).subscribe((data) => {
-      this.dataCustomer = data,
-      console.log("Customeraaaa", this.dataCustomer)
-      console.log("Customeraaaa id ", this.dataCustomer.id)
-      console.log("Customeraaaa first_name", this.dataCustomer.first_name)
+    this.store.dispatch(new CustomerActions.GetCustomer(id));
+    this.customers$.subscribe((data)=> {
+      this.data_test = data
       this.form = new FormGroup({
-        id:new FormControl(this.dataCustomer.id),
-        first_name: new FormControl(this.dataCustomer.first_name),
-        last_name: new FormControl(this.dataCustomer.last_name),
-        email: new FormControl(this.dataCustomer.email),
-        avatar: new FormControl(this.dataCustomer.avatar)
+        id:new FormControl (this.data_test.id),
+        first_name : new FormControl (this.data_test.first_name),
+        last_name : new FormControl (this.data_test.last_name),
+        email : new FormControl (this.data_test.email),
+        avatar : new FormControl (this.data_test.avatar)
       })
     })
 
@@ -53,10 +56,14 @@ export class DetailCustomerComponent implements OnInit {
   save(id:number,first_name:string, last_name:string,email:string,avatar:string){
     console.log("save",first_name,last_name,email)
     this.data = {id,email,first_name,last_name,avatar}
-    this.dataService.updateCustomer(this.data).subscribe(()=>this.goBack())
+    this.store.dispatch(new CustomerActions.UpdateCustomer(this.data)).subscribe(()=>this.goBack());
+
+    // this.dataService.updateCustomer(this.data).subscribe(()=>this.goBack())
 
   }
 
 
 
 }
+
+

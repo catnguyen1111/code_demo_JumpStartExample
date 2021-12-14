@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable ,of,throwError } from 'rxjs';
-import { Partial,IState,Customer } from '../model/interface';
+import {IState,Customer } from '../model/interface';
 import {map, catchError, tap, } from 'rxjs/operators';
 
 
@@ -55,7 +55,7 @@ export class DataService {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<Customer[]>(`${this.UrlCustomer}/?name=${term}`).pipe(
+    return this.http.get<Customer[]>(`${this.UrlCustomer}/?first_name=${term}`).pipe(
       tap(x => x.length ?
         console.log(`found customer matching "${term}"`) :
         console.log(`no customer matching "${term}"`)),

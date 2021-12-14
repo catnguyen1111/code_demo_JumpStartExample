@@ -3,7 +3,7 @@
   <app-customers></app-customers>
   <br>
   <div class="row card-container">
-      <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let customer of data">
+      <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let customer of customers$ | async">
           <div class="card">
             <div class="card-header">
               <a [routerLink]="['/customers',customer.id,'details']" class="white">

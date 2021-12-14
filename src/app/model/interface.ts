@@ -29,9 +29,9 @@ export interface Customer{
 }
 export interface Partial<Customer>{
   id?: number;
-  first_name:string;
-  last_name:string;
+  first_name?:string;
+  last_name?:string;
   email?:string;
-  avatar:string;
+  avatar?:string;
 }
 

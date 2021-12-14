@@ -4,7 +4,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="firstName">FirstName: </label>
-      <input type="text" placeholder="Enter First Name" class="form-control" id="firstName" formControlName="first_name">
+      <input type="text" placeholder="Enter First Name" class="form-control" id="firstName" formControlName="first_name" #first_name>
       <span
         *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.required">
           Please enter firstName.
@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
       <label for="lastName">LastName: </label>
-      <input type="text" placeholder="Enter Last Name" class="form-control" id="lastName" formControlName="last_name">
+      <input type="text" placeholder="Enter Last Name" class="form-control" id="lastName" formControlName="last_name" #last_name>
       <span
         *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.required">
         Please enter lastName.
@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
       <label for="email">Email: </label>
-      <input type="email" placeholder="Enter Email" class="form-control" id="email" formControlName="email">
+      <input type="email" placeholder="Enter Email" class="form-control" id="email" formControlName="email" #email>
       <span
          *ngIf="form.controls.email.touched && form.controls.email.errors?.required">
            Please enter email address.
@@ -32,11 +32,9 @@
     </div>
     <div class="form-group">
       <button (click)="addCustomer(
-        form.controls.id.value,
-        form.controls.first_name.value,
-        form.controls.last_name.value,
-        form.controls.email.value,
-        form.controls.avatar.value
+        first_name.value,
+        last_name.value,
+        email.value
         )"
        class="btn btn-primary" [disabled]="!form.valid"
        >Add Customer</button>

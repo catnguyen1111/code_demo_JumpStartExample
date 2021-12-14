@@ -1,7 +1,7 @@
 <div class="container">
   <app-customers></app-customers>
   <br>
-  <table class="table table-striped table-dark test" *ngFor="let customer of data">
+  <table class="table table-striped table-dark test" *ngFor="let customer of customers$|async">
     <thead>
       <tr>
         <th scope="col">ID</th>

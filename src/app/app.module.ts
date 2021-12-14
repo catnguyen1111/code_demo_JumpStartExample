@@ -16,6 +16,9 @@ import { DetailCustomerComponent } from './customers/detail-customer/detail-cust
 
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api'
 import {InMemoryDataService} from './Services/in-memory-data.service'
+
+import { NgxsModule } from '@ngxs/store';
+import { CustomerState } from './Store/customer.state';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +41,7 @@ import {InMemoryDataService} from './Services/in-memory-data.service'
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService,{ dataEncapsulation: false }
     ),
+    NgxsModule.forRoot([CustomerState]),
 
   ],
   providers: [],
