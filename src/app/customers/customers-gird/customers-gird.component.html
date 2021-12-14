@@ -1,7 +1,14 @@
 <div class="container">
   <app-customers></app-customers>
   <br>
-  <table class="table table-striped table-dark test" *ngFor="let customer of customers$|async">
+  <table class="table table-striped table-dark test"
+   *ngFor="let customer of POSTS | paginate:{
+    itemsPerPage: tableSize,
+    currentPage: page,
+    totalItems: count
+   };
+   let i = index"
+   >
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -28,4 +35,57 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+  </div>
 </div>
+
+
+
+<!-- <div class="container">
+  <app-customers></app-customers>
+  <br>
+  <table class="table table-striped table-dark test"
+   *ngFor="let customer of customers$|async">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Img</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Email</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{customer.id}}</th>
+        <td><img src={{customer.avatar}} alt=""></td>
+        <td>{{customer.first_name }}</td>
+        <td>{{customer.last_name }}</td>
+        <td>{{customer.email}}</td>
+        <a href=""><span>View Order</span></a>
+        <br>
+        <button routerLink="/detail/{{customer.id}}" class="btn btn-primary">Update</button>
+        <br>
+        <br>
+        <button (click)="delete(customer)" class="btn btn-primary">Delete</button>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      responsive="true"
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+  </div>
+</div> -->

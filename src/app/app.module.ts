@@ -19,6 +19,9 @@ import {InMemoryDataService} from './Services/in-memory-data.service'
 
 import { NgxsModule } from '@ngxs/store';
 import { CustomerState } from './Store/customer.state';
+
+
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +30,7 @@ import { CustomerState } from './Store/customer.state';
     CustomersGirdComponent,
     NewCustomerComponent,
     DetailCustomerComponent,
+
 
   ],
   imports: [
@@ -42,6 +46,8 @@ import { CustomerState } from './Store/customer.state';
       InMemoryDataService,{ dataEncapsulation: false }
     ),
     NgxsModule.forRoot([CustomerState]),
+
+    NgxPaginationModule
 
   ],
   providers: [],
