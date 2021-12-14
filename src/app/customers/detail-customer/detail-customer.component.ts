@@ -16,9 +16,9 @@ import * as CustomerActions from 'src/app/Store/customer.action';
 })
 export class DetailCustomerComponent implements OnInit {
   @Select(CustomerState.selectedCustomer) customers$!: Observable<Customer>
-  public dataCustomer!:Customer;
+  public dataCustomer?:Customer;
   public data!:Customer;
-  public data_test!:any;
+  public data_test:any;
   form!: FormGroup;
   constructor(
     private dataService: DataService,
@@ -29,22 +29,28 @@ export class DetailCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomer();
-    this.customers$.subscribe((data)=> {
-      this.data_test = data
-      this.form = new FormGroup({
-        id:new FormControl (this.data_test.id),
-        first_name : new FormControl (this.data_test.first_name),
-        last_name : new FormControl (this.data_test.last_name),
-        email : new FormControl (this.data_test.email),
-        avatar : new FormControl (this.data_test.avatar)
-      })
-    })
-
 
   }
   getCustomer() {
     const id = Number(this.router.snapshot.paramMap.get('id'));
-    this.store.dispatch(new CustomerActions.GetCustomer(id));
+    console.log("id",id)
+    // this.store.dispatch(new CustomerActions.GetCustomer(id));
+    this.router.snapshot.data['data'];
+    console.log("customer$",this.customers$)
+    this.customers$.subscribe((data)=> {
+      console.log("data",data)
+      this.dataCustomer = data
+
+      console.log("dataCustomer",this.dataCustomer.first_name)
+      this.form = new FormGroup({
+        id:new FormControl (this.dataCustomer.id),
+        first_name : new FormControl (this.dataCustomer.first_name),
+        last_name : new FormControl (this.dataCustomer.last_name),
+        email : new FormControl (this.dataCustomer.email),
+        avatar : new FormControl (this.dataCustomer.avatar)
+      })
+    })
+
 
   }
   goBack(){
