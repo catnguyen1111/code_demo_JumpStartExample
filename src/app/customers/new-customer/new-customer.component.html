@@ -32,9 +32,9 @@
     </div>
     <div class="form-group">
       <button (click)="addCustomer(
-        first_name.value,
-        last_name.value,
-        email.value
+        form.controls.first_name.value,
+        form.controls.last_name.value,
+        form.controls.email.value
         )"
        class="btn btn-primary" [disabled]="!form.valid"
        >Add Customer</button>

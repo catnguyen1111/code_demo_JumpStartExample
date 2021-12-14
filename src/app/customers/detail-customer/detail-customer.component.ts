@@ -29,12 +29,6 @@ export class DetailCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomer();
-
-
-  }
-  getCustomer() {
-    const id = Number(this.router.snapshot.paramMap.get('id'));
-    this.store.dispatch(new CustomerActions.GetCustomer(id));
     this.customers$.subscribe((data)=> {
       this.data_test = data
       this.form = new FormGroup({
@@ -45,6 +39,12 @@ export class DetailCustomerComponent implements OnInit {
         avatar : new FormControl (this.data_test.avatar)
       })
     })
+
+
+  }
+  getCustomer() {
+    const id = Number(this.router.snapshot.paramMap.get('id'));
+    this.store.dispatch(new CustomerActions.GetCustomer(id));
 
   }
   goBack(){
