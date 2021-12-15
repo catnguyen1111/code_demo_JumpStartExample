@@ -9,6 +9,10 @@
         *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.required">
           Please enter firstName.
       </span>
+      <span
+        *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.checkMinLength ">
+          FirstName length is too short.
+      </span>
     </div>
     <div class="form-group">
       <label for="lastName">LastName: </label>
@@ -17,18 +21,26 @@
         *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.required">
         Please enter lastName.
     </span>
+       <span
+        *ngIf="form.controls.last_name.touched && form.controls.last_name.errors?.checkMaxLength ">
+        LastName length is too long.
+       </span>
     </div>
     <div class="form-group">
       <label for="email">Email: </label>
-      <input type="email" placeholder="Enter Email" class="form-control" id="email" formControlName="email" #email>
+      <input type="text" placeholder="Enter Email" class="form-control" id="email" formControlName="email" #email>
       <span
          *ngIf="form.controls.email.touched && form.controls.email.errors?.required">
            Please enter email address.
      </span>
-     <span
+     <!-- <span
        *ngIf="form.controls.email.touched && form.controls.email.errors?.pattern">
          Email address not well formed.
-     </span>
+     </span> -->
+     <span
+     *ngIf="form.controls.email.touched && form.controls.email.errors?.validateEmail">
+       Email address not well formed.
+   </span>
     </div>
     <div class="form-group">
       <button (click)="addCustomer(
@@ -36,7 +48,7 @@
         form.controls.last_name.value,
         form.controls.email.value
         )"
-       class="btn btn-primary" [disabled]="!form.valid"
+       class="btn btn-primary"
        >Add Customer</button>
     </div>
   </form>
