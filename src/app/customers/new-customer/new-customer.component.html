@@ -10,7 +10,7 @@
           Please enter firstName.
       </span>
       <span
-        *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.checkMinLength ">
+        *ngIf="form.controls.first_name.touched && form.controls.first_name.errors?.checkMinLength">
           FirstName length is too short.
       </span>
     </div>
@@ -43,7 +43,9 @@
    </span>
     </div>
     <div class="form-group">
-      <button (click)="addCustomer(
+      <button
+      [routerLink]="['/customers/gird']"
+       (click)="addCustomer(
         form.controls.first_name.value,
         form.controls.last_name.value,
         form.controls.email.value

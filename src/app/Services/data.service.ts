@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable ,of,throwError } from 'rxjs';
+import { BehaviorSubject, Observable ,of,throwError } from 'rxjs';
 import {IState,Customer } from '../model/interface';
 import {map, catchError, tap, } from 'rxjs/operators';
 
@@ -12,10 +12,16 @@ export class DataService {
   public Url = 'https://reqres.in/api/users?page=2'
   public UrlPost = 'https://reqres.in/api/users'
   public UrlCustomer = 'api/customers'
+  dataUser = new BehaviorSubject<string>("");
+  currentdata = this.dataUser.asObservable();
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   constructor(private http:HttpClient) { }
+
+  setDataUser(data:any){
+    this.dataUser.next(data);
+  }
   getCustomeres():Observable<Customer[]> {
     return this.http.get<Customer[]>(this.UrlCustomer)
     .pipe(

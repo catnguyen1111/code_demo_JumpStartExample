@@ -13,12 +13,15 @@ export class CustomersComponent implements OnInit {
   private searchTerms = new Subject<string>();
   constructor(private dataService: DataService) { }
   public customers$!: Observable<Customer[]>
+
   ngOnInit(): void {
     this.customers$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => this.dataService.searchCustomer(term)),
+
     )
+
   }
   search(term: string): void {
     this.searchTerms.next(term);

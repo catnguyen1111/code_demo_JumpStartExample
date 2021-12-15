@@ -22,6 +22,7 @@ import { CustomerState } from './Store/customer.state';
 
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CustomersGirdComponent,
     NewCustomerComponent,
     DetailCustomerComponent,
+    LoginComponent,
 
 
   ],

@@ -7,7 +7,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { CustomerState } from 'src/app/Store/customer.state';
 import * as CustomerActions from 'src/app/Store/customer.action';
 import * as CustomValidation from 'src/app/customValidation/customValidation'
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-new-customer',
   templateUrl: './new-customer.component.html',
@@ -17,7 +17,7 @@ export class NewCustomerComponent implements OnInit {
   @Select(CustomerState.customer) customers$!: Observable<Customer[]>
   constructor(private dataService: DataService,
     private store:Store,
-
+    private location:Location
     ) { }
   form!: FormGroup;
   data!:any;
@@ -34,6 +34,7 @@ export class NewCustomerComponent implements OnInit {
   onSubmit(){
     console.log("data form",this.form.value);
   }
+
   addCustomer(first_name: string, last_name: string,email: string){
     console.log("add customer",first_name,last_name,email)
     this.data = {first_name,last_name,email};
