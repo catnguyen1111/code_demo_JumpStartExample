@@ -18,8 +18,8 @@ export class ResolveGuard implements Resolve<any>{
     ){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = Number(route.paramMap.get('id'));
-    this.spinner.show()
-    return this.store.dispatch(new CustomerActions.GetCustomer(id)).pipe(delay(2000));
+    // this.spinner.show()
+    return this.store.dispatch(new CustomerActions.GetCustomer(id))
   }
 
 }

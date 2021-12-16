@@ -1,3 +1,4 @@
+<div *ngIf="check_router === true"></div>
 <form [formGroup]="form" (ngSubmit)="onsubmit()">
   <h2>{{form.controls.first_name.value}} {{form.controls.last_name.value}} Details</h2>
   <img src="{{form.controls.avatar.value}}" alt="">
@@ -24,7 +25,9 @@
     form.controls.avatar.value)">Save</button>
 
  </form>
-
+ <mat-progress-bar
+ *ngIf = "loading" color = "accent" mode ="determinate">
+</mat-progress-bar>
 
 <!-- {{dataCustomer.first_name}}{{ dataCustomer.last_name}}
 

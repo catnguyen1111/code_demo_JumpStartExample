@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router,Event, NavigationCancel, NavigationError } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/model/interface';
 import { DataService } from 'src/app/Services/data.service';
@@ -21,13 +21,44 @@ export class DetailCustomerComponent implements OnInit {
   public data!:Customer;
   public data_test:any;
   form!: FormGroup;
+  public timeout:any;
+  public check_router:boolean = false;
+  public loading:boolean = false;
   constructor(
     private dataService: DataService,
     private router: ActivatedRoute,
     private location: Location,
     private store: Store,
+    private route:Router,
     private spinner: NgxSpinnerService
-  ) { }
+  ) {
+    this.route.events.subscribe((event:Event) => {
+      switch(true){
+        case event instanceof NavigationStart:{
+
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationEnd:{
+          this.timeout = setTimeout(() => {
+            clearTimeout(this.timeout);
+            this.loading = false;
+            this.check_router = true
+         }, 1000);
+          break;
+        }
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError:{
+          this.loading = false;
+          break;
+        }
+        default:{
+          break;
+        }
+
+      }
+    })
+   }
 
   ngOnInit(): void {
     this.getCustomer();
@@ -38,7 +69,7 @@ export class DetailCustomerComponent implements OnInit {
     // console.log("id",id)
     // this.store.dispatch(new CustomerActions.GetCustomer(id));
     this.router.snapshot.data['data'];
-    this.spinner.hide();
+    // this.spinner.hide();
     console.log("customer$",this.customers$)
     this.customers$.subscribe((data)=> {
       console.log("data",data)

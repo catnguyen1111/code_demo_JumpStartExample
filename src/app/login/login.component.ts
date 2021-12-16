@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   check_router: boolean = false;
   constructor(private authService: AuthService,private dataService: DataService,  private route: Router) {
 
-
   }
   loginAdmin = {
     username : "admin",

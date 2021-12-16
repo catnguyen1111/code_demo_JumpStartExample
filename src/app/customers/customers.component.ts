@@ -18,7 +18,32 @@ export class CustomersComponent implements OnInit {
   timeout:any;
   constructor(private dataService: DataService,private route: Router) {
 
+    this.route.events.subscribe((event:Event) => {
+      switch(true){
+        case event instanceof NavigationStart:{
 
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationEnd:{
+          this.timeout = setTimeout(() => {
+            clearTimeout(this.timeout);
+            this.loading = false;
+            this.check_router = true
+         }, 1);
+          break;
+        }
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError:{
+          this.loading = false;
+          break;
+        }
+        default:{
+          break;
+        }
+
+      }
+    })
    }
 
   ngOnInit(): void {

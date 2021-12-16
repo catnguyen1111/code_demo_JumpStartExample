@@ -3,6 +3,7 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 import { AuthService } from './Services/auth.service';
 import { DataService } from './Services/data.service';
 import {Location} from '@angular/common';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,9 +18,35 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService,
     private dataService: DataService,
     private  router: Router,
-    private location: Location
-    ){
+    private location: Location,
+    )
+  {
+    this.router.events.subscribe((event:Event) => {
+      switch(true){
+        case event instanceof NavigationStart:{
 
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationEnd:{
+          this.timeout = setTimeout(() => {
+            clearTimeout(this.timeout);
+            this.loading = false;
+
+         }, 1);
+          break;
+        }
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError:{
+          this.loading = false;
+          break;
+        }
+        default:{
+          break;
+        }
+
+      }
+    })
   }
   ngOnInit(): void {
     this.dataService.currentdata.subscribe((data)=>this.dataUser =data)

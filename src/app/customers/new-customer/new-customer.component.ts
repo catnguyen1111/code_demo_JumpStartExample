@@ -27,7 +27,6 @@ export class NewCustomerComponent implements OnInit {
     private route:Router
     ) {
 
-
      }
 
   ngOnInit(): void {
