@@ -20,9 +20,16 @@ import {InMemoryDataService} from './Services/in-memory-data.service'
 import { NgxsModule } from '@ngxs/store';
 import { CustomerState } from './Store/customer.state';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +39,6 @@ import { LoginComponent } from './login/login.component';
     NewCustomerComponent,
     DetailCustomerComponent,
     LoginComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -49,8 +54,15 @@ import { LoginComponent } from './login/login.component';
     ),
     NgxsModule.forRoot([CustomerState]),
 
-    NgxPaginationModule
+    NgxPaginationModule,
 
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

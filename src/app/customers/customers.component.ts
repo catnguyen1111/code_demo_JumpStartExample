@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart ,Event, Router} from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Customer } from '../model/interface';
@@ -11,8 +12,14 @@ import { DataService } from '../Services/data.service';
 })
 export class CustomersComponent implements OnInit {
   private searchTerms = new Subject<string>();
-  constructor(private dataService: DataService) { }
   public customers$!: Observable<Customer[]>
+  loading: boolean = false;
+  check_router: boolean = false;
+  timeout:any;
+  constructor(private dataService: DataService,private route: Router) {
+
+
+   }
 
   ngOnInit(): void {
     this.customers$ = this.searchTerms.pipe(

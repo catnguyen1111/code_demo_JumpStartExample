@@ -4,6 +4,8 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { DataService } from './Services/data.service';
 import * as CustomerActions from 'src/app/Store/customer.action';
+import { delay } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +13,13 @@ import * as CustomerActions from 'src/app/Store/customer.action';
 export class ResolveGuard implements Resolve<any>{
   constructor(
     private dataService: DataService,
-    private store:Store
+    private store:Store,
+    private spinner: NgxSpinnerService
     ){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = Number(route.paramMap.get('id'));
-
-    return this.store.dispatch(new CustomerActions.GetCustomer(id));
+    this.spinner.show()
+    return this.store.dispatch(new CustomerActions.GetCustomer(id)).pipe(delay(2000));
   }
 
 }

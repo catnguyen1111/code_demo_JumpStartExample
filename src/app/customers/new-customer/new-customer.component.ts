@@ -8,6 +8,7 @@ import { CustomerState } from 'src/app/Store/customer.state';
 import * as CustomerActions from 'src/app/Store/customer.action';
 import * as CustomValidation from 'src/app/customValidation/customValidation'
 import {Location} from '@angular/common';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router,Event } from '@angular/router';
 @Component({
   selector: 'app-new-customer',
   templateUrl: './new-customer.component.html',
@@ -15,12 +16,19 @@ import {Location} from '@angular/common';
 })
 export class NewCustomerComponent implements OnInit {
   @Select(CustomerState.customer) customers$!: Observable<Customer[]>
-  constructor(private dataService: DataService,
-    private store:Store,
-    private location:Location
-    ) { }
   form!: FormGroup;
   data!:any;
+  loading:boolean = false;
+  timeout:any;
+  check_router: boolean = false;
+  constructor(private dataService: DataService,
+    private store:Store,
+    private location:Location,
+    private route:Router
+    ) {
+
+
+     }
 
   ngOnInit(): void {
     this.form = new FormGroup({

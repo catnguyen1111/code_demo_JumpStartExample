@@ -9,6 +9,7 @@ import {Location} from '@angular/common';
 import { CustomerState } from 'src/app/Store/customer.state';
 import { Select, Store } from '@ngxs/store';
 import * as CustomerActions from 'src/app/Store/customer.action';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-detail-customer',
   templateUrl: './detail-customer.component.html',
@@ -24,7 +25,8 @@ export class DetailCustomerComponent implements OnInit {
     private dataService: DataService,
     private router: ActivatedRoute,
     private location: Location,
-    private store: Store
+    private store: Store,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -32,10 +34,11 @@ export class DetailCustomerComponent implements OnInit {
 
   }
   getCustomer() {
-    const id = Number(this.router.snapshot.paramMap.get('id'));
-    console.log("id",id)
+    // const id = Number(this.router.snapshot.paramMap.get('id'));
+    // console.log("id",id)
     // this.store.dispatch(new CustomerActions.GetCustomer(id));
     this.router.snapshot.data['data'];
+    this.spinner.hide();
     console.log("customer$",this.customers$)
     this.customers$.subscribe((data)=> {
       console.log("data",data)

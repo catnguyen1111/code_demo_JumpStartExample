@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Event, Router } from '@angular/router';
 import * as CustomValidation from 'src/app/customValidation/customValidation'
 import { AppComponent } from '../app.component';
 import { AuthService } from '../Services/auth.service';
@@ -12,9 +12,14 @@ import { DataService } from '../Services/data.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  public data: string =''
+  public data: string|null =''
+  loading: boolean = false;
+  timeout:any;
+  check_router: boolean = false;
+  constructor(private authService: AuthService,private dataService: DataService,  private route: Router) {
 
-  constructor(private authService: AuthService,private dataService: DataService,  private route: Router) { }
+
+  }
   loginAdmin = {
     username : "admin",
     email: "admin@gmail.com",
@@ -42,8 +47,9 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("password",this.loginForm.value.password);
       this.authService.loginUser();
       this.authService.login();
-      this.data =this.loginForm.value.username;
-      this.dataService.setDataUser(this.loginForm.value.username)
+      this.data = localStorage.getItem('username')
+      // this.dataService.setDataUser(this.loginForm.value.username)
+       this.dataService.setDataUser(this.data)
       this.route.navigate(['/customers'])
 
 
@@ -56,8 +62,9 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("password",this.loginForm.value.password);
       this.authService.loginUser();
       this.authService.login();
-      this.data =this.loginForm.value.username;
-      this.dataService.setDataUser(this.loginForm.value.username)
+      this.data = localStorage.getItem('username')
+      // this.dataService.setDataUser(this.loginForm.value.username)
+      this.dataService.setDataUser(this.data)
       this.route.navigate(['/customers'])
     }
     else{

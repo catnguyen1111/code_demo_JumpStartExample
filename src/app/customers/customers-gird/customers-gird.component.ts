@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/model/interface';
 import { DataService } from 'src/app/Services/data.service';
-
+import {Location} from '@angular/common';
 import { CustomerState } from 'src/app/Store/customer.state';
 import * as CustomerActions from 'src/app/Store/customer.action';
 import { Select, Store } from '@ngxs/store';
@@ -14,7 +14,7 @@ import { Select, Store } from '@ngxs/store';
 export class CustomersGirdComponent implements OnInit {
   @Select(CustomerState.customer) customers$!: Observable<Customer[]>
   public datas$ !:Observable<Customer[]>;
-  constructor(public dataService: DataService,private store:Store) { }
+  constructor(public dataService: DataService,private store:Store,private location:Location) { }
   data:any;
   POSTS:any;
   page:number = 1;
@@ -29,8 +29,6 @@ export class CustomersGirdComponent implements OnInit {
 
   // this.store.dispatch(new CustomerActions.GetCustomers())
     this.fetchPosts();
-
-
   }
   fetchPosts():void {
     this.store.dispatch(new CustomerActions.GetCustomers()).subscribe(_=>{
@@ -54,7 +52,6 @@ export class CustomersGirdComponent implements OnInit {
 
     console.log("delete",customer.id)
     this.store.dispatch(new CustomerActions.DeleteCustomer(customer.id))
-
     // this.dataService.deleteCustomer(customer.id).subscribe()
     // this.dataService.getCustomeres().subscribe(customer => {
     //   console.log("customer gird",customer);
